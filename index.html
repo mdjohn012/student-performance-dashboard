@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A responsive student performance dashboard built with HTML, CSS and vanilla JavaScript.">
+  <title>Student Performance Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="Classwise home">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18V9m5 9V5m5 13v-6m5 6V3" /></svg></span>
+        <span>classwise<span class="brand-dot">.</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <a class="nav-item active" href="#overview"><span class="nav-icon">▦</span> Overview</a>
+        <a class="nav-item" href="#students"><span class="nav-icon">♙</span> Students <span class="nav-count" id="navStudentCount">12</span></a>
+        <a class="nav-item" href="#performance"><span class="nav-icon">↗</span> Performance</a>
+        <a class="nav-item" href="#attendance"><span class="nav-icon">✓</span> Attendance</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <div class="help-icon">✦</div>
+          <strong>Need a hand?</strong>
+          <p>Keep your class data organized and easy to understand.</p>
+          <a href="#about">About dashboard <span>↗</span></a>
+        </div>
+        <div class="profile">
+          <div class="avatar avatar-indigo">AJ</div>
+          <div class="profile-copy"><strong>Alex Johnson</strong><span>Administrator</span></div>
+          <button class="icon-button profile-menu" aria-label="Profile options" title="Profile options">•••</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <button class="icon-button menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div>
+        <div class="topbar-actions">
+          <span class="today-pill"><span class="live-dot"></span> Academic year 2026–27</span>
+          <button class="icon-button notification-button" aria-label="Notifications" title="Notifications">♧<i></i></button>
+          <div class="avatar avatar-indigo top-avatar">AJ</div>
+        </div>
+      </header>
+
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">MONDAY, OCTOBER 20, 2026</p>
+          <h1>Student overview <span class="wave">✦</span></h1>
+          <p class="subtitle">Here's what's happening with your students today.</p>
+        </div>
+        <div class="heading-actions">
+          <button class="btn btn-secondary" id="exportBtn"><span>↓</span> Export report</button>
+          <button class="btn btn-primary" id="addStudentBtn"><span>＋</span> Add student</button>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Key metrics">
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Total students</span><span class="stat-icon icon-blue">♙</span></div>
+          <div class="stat-number" id="totalStudents">12</div>
+          <div class="stat-foot"><span class="trend positive">↗ 8.2%</span><span>vs. last term</span></div>
+          <div class="stat-spark spark-blue"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Average score</span><span class="stat-icon icon-purple">◎</span></div>
+          <div class="stat-number"><span id="averageScore">84.6</span><small>%</small></div>
+          <div class="stat-foot"><span class="trend positive">↗ 2.4%</span><span>vs. last term</span></div>
+          <div class="stat-spark spark-purple"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Attendance rate</span><span class="stat-icon icon-green">✓</span></div>
+          <div class="stat-number"><span id="averageAttendance">92.4</span><small>%</small></div>
+          <div class="stat-foot"><span class="trend positive">↗ 1.8%</span><span>vs. last month</span></div>
+          <div class="stat-spark spark-green"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span class="stat-label">Needs attention</span><span class="stat-icon icon-orange">!</span></div>
+          <div class="stat-number" id="needsAttention">2</div>
+          <div class="stat-foot"><span class="trend caution">Review required</span><span>score below 70%</span></div>
+          <div class="stat-spark spark-orange"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+      </section>
+
+      <section class="content-grid" id="performance">
+        <article class="panel performance-panel">
+          <div class="panel-header">
+            <div><h2>Performance overview</h2><p>Average score by subject</p></div>
+            <select id="chartPeriod" class="select-control" aria-label="Chart period"><option value="current">Current term</option><option value="previous">Previous term</option></select>
+          </div>
+          <div class="chart-legend"><span><i class="legend-dot dot-indigo"></i> Average score</span><span class="legend-note">Out of 100</span></div>
+          <div class="bar-chart" id="subjectChart" aria-label="Bar chart of average subject scores"></div>
+          <div class="chart-footer"><span class="mini-check">✓</span><span>Students are performing <strong>well overall</strong> this term.</span><a href="#students">View students →</a></div>
+        </article>
+
+        <article class="panel distribution-panel">
+          <div class="panel-header"><div><h2>Grade distribution</h2><p>Student score breakdown</p></div><button class="icon-button tiny-menu" aria-label="Grade information" title="Grade bands">•••</button></div>
+          <div class="donut-wrap">
+            <div class="donut" id="gradeDonut"><div class="donut-center"><strong id="gradeTotal">12</strong><span>Students</span></div></div>
+          </div>
+          <div class="grade-legend" id="gradeLegend"></div>
+          <div class="distribution-note"><span class="note-check">✦</span><span><strong id="topGradeText">Most students</strong> are in the A and B grade bands.</span></div>
+        </article>
+      </section>
+
+      <section class="panel students-panel" id="students">
+        <div class="panel-header students-header">
+          <div><h2>Student performance</h2><p>Track and manage individual progress</p></div>
+          <button class="btn btn-secondary btn-small" id="clearFiltersBtn">Reset filters</button>
+        </div>
+        <div class="table-toolbar">
+          <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search students..." aria-label="Search students"></label>
+          <div class="filter-group">
+            <select id="classFilter" class="select-control" aria-label="Filter by class"><option value="all">All classes</option><option value="BCA 1">BCA 1</option><option value="BCA 2">BCA 2</option><option value="BCA 3">BCA 3</option></select>
+            <select id="gradeFilter" class="select-control" aria-label="Filter by grade"><option value="all">All grades</option><option value="A">Grade A</option><option value="B">Grade B</option><option value="C">Grade C</option><option value="D">Grade D</option></select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th><button class="sort-button" data-sort="name">STUDENT <span>↕</span></button></th><th>CLASS</th><th><button class="sort-button" data-sort="score">AVG. SCORE <span>↕</span></button></th><th>ATTENDANCE</th><th>GRADE</th><th>STATUS</th><th></th></tr></thead>
+            <tbody id="studentTableBody"></tbody>
+          </table>
+          <div class="empty-state hidden" id="emptyState"><span>⌕</span><strong>No students found</strong><p>Try changing your search or filters.</p></div>
+        </div>
+        <div class="table-footer"><span id="tableCount">Showing 12 students</span><div class="pagination"><button class="page-button active" aria-label="Page 1">1</button><button class="page-button" disabled aria-label="Next page">→</button></div></div>
+      </section>
+
+      <section class="bottom-grid" id="attendance">
+        <article class="panel attendance-panel">
+          <div class="panel-header"><div><h2>Attendance snapshot</h2><p>Average attendance by class</p></div><span class="subtle-badge">This month</span></div>
+          <div class="attendance-rows" id="attendanceRows"></div>
+        </article>
+        <article class="panel insight-panel" id="about">
+          <div class="insight-icon">✦</div>
+          <div><p class="eyebrow">CLASS INSIGHT</p><h2>Small steps, better results.</h2><p>Consistent attendance and regular practice help students improve over time. Check in with students who may need extra support.</p><button class="text-button" id="showSupportBtn">See students needing support <span>→</span></button></div>
+        </article>
+      </section>
+      <footer class="footer"><span>© 2026 Classwise. Student data is stored in this browser.</span><span>Made for better learning <span class="footer-heart">♥</span></span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <form class="modal" id="studentForm">
+      <div class="modal-heading"><div><p class="eyebrow">STUDENT RECORD</p><h2 id="modalTitle">Add a student</h2></div><button type="button" class="icon-button" id="closeModalBtn" aria-label="Close dialog">×</button></div>
+      <div class="form-grid">
+        <label class="form-field full-width">Full name<input name="name" required maxlength="60" placeholder="e.g. Aisha Khan"></label>
+        <label class="form-field">Class<select name="className"><option>BCA 1</option><option>BCA 2</option><option>BCA 3</option></select></label>
+        <label class="form-field">Average score (%)<input name="score" type="number" required min="0" max="100" value="80"></label>
+        <label class="form-field full-width">Attendance (%)<input name="attendance" type="number" required min="0" max="100" value="90"></label>
+      </div>
+      <p class="form-hint">Demo data is saved locally in this browser using LocalStorage.</p>
+      <div class="modal-actions"><button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancel</button><button type="submit" class="btn btn-primary">Save student</button></div>
+    </form>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
